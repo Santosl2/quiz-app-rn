@@ -5,7 +5,7 @@ import { Container, Box } from "./styles";
 import { useQuiz } from "../../hooks/useQuiz";
 
 export function QuizBody() {
-  const { verifyAnswer, answer } = useQuiz();
+  const { answer, handleConfirmAnswer } = useQuiz();
   return (
     <Container>
       <View>
@@ -18,7 +18,7 @@ export function QuizBody() {
           title="Confirm Answer"
           color={"#462e47"}
           disabled={!answer}
-          onPress={verifyAnswer}
+          onPress={handleConfirmAnswer}
         />
       </View>
     </Container>

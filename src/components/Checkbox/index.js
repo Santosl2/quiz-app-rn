@@ -1,12 +1,12 @@
-import { CustomTouchableOpacity, CustomText } from "./styles";
 import { useQuiz } from "../../hooks/useQuiz";
+import { CustomTouchableOpacity, CustomText } from "./styles";
 
 export function Checkbox({ title }) {
-  const { handleUpdateAnswer, answer } = useQuiz();
+  const { handleChangeAnswer, answer } = useQuiz();
 
   return (
     <CustomTouchableOpacity
-      onPress={() => handleUpdateAnswer(title)}
+      onPress={() => handleChangeAnswer(title)}
       isChecked={answer === title}
     >
       <CustomText>{title}</CustomText>

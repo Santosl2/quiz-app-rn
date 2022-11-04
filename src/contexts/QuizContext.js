@@ -22,24 +22,29 @@ export function QuizProvider({ children }) {
 
   const totalQuestions = useMemo(() => QUESTIONS.length, [QUESTIONS]);
 
-  const handleUpdateAnswer = useCallback((answer) => {
-    setAnswer(answer);
-  }, []);
-
   const setQuestionStep = useCallback(() => {
     if (actualQuestionStep >= totalQuestions) {
+      setActualQuestionStep(1);
+      setScore(0);
       return Alert.alert("Quiz Finished", `Your final score is ${score}`);
     }
 
     setActualQuestionStep(actualQuestionStep + 1);
-  }, [actualQuestionStep, totalQuestions]);
+  }, [actualQuestionStep, totalQuestions, score]);
 
-  const verifyAnswer = useCallback(() => {
+  const handleChangeAnswer = useCallback(
+    (answer) => {
+      setAnswer(answer);
+    },
+    [setAnswer]
+  );
+
+  const handleConfirmAnswer = useCallback(() => {
     if (answer === getActualQuestion.answer) {
       setScore((prev) => prev + 1);
     }
 
-    setAnswer("");
+    setAnswer();
     setQuestionStep();
   }, [answer, getActualQuestion, setQuestionStep]);
 
@@ -50,10 +55,10 @@ export function QuizProvider({ children }) {
         setActualQuestionStep,
         totalQuestions,
         getActualQuestion,
-        handleUpdateAnswer,
         answer,
         score,
-        verifyAnswer,
+        handleChangeAnswer,
+        handleConfirmAnswer,
       }}
     >
       {children}
